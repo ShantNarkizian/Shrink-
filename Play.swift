@@ -26,9 +26,6 @@ class Play: SKScene {
     var pause = SKSpriteNode()
     var pause1 = SKSpriteNode()
     var screen = SKSpriteNode()
-
-
-    
     
     var run1 = false
     var called = true
@@ -42,15 +39,10 @@ class Play: SKScene {
     var twice: Bool = false
     
     let sound2 = SKAction.playSoundFileNamed("lost.wav", waitForCompletion: false)
-    
-    
     var duration = 3.0
     
-    
-    
     override func didMove(to view: SKView) {
-        LoadView()
-        
+        LoadView() 
     }
     
     func LoadView(){
@@ -68,7 +60,6 @@ class Play: SKScene {
         Circle2.zPosition = 0.2
         callCircle2()
         called = true
-        
         
         self.scoreText.fontName = "STFangsong"
         self.scoreText.text = "\(score)"
@@ -93,10 +84,7 @@ class Play: SKScene {
         screen = SKSpriteNode(imageNamed: "screen")
         screen.size = CGSize(width: 100000, height: 100000)
         screen.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        screen.zPosition = 1
-        
-        
-        
+        screen.zPosition = 1     
     }
     
     
@@ -106,15 +94,13 @@ class Play: SKScene {
         let scaleAction = SKAction.scale(to: CGSize(width: 3, height: 3), duration: TimeInterval(duration))
         let pulse = SKAction.sequence([scaleAction,scaleAction2])
         let forever = SKAction.repeatForever(pulse)
-        Circle2.run(forever)
-        
-        }
+        Circle2.run(forever)      
+    }
     
     func scaleCircle1(){
         let duration2 = 0.5
         let scaleAction3 = SKAction.scale(to: CGSize(width: initialsize, height: initialsize), duration: TimeInterval(duration2))
-        Circle.run(scaleAction3)
-        
+        Circle.run(scaleAction3)        
     }
     
     
@@ -135,10 +121,6 @@ class Play: SKScene {
         if Circle2.size.width > Circle.size.width{
             twice = false
         }
-        
-       
-    
-    
     }
     
     
@@ -159,7 +141,6 @@ class Play: SKScene {
             pause1.removeFromParent()
             screen.removeFromParent()
             cl = true
-
         }
         
      //  let touchy = touches.first!
@@ -188,34 +169,28 @@ class Play: SKScene {
         let size2 = Circle2.size.width
         let size = Circle.size.width
         if par == false{
-        if size2 <= size{                               // doesn't allow multiple taps
-            print("moving circle is inside")
-            if twice == false{
-                initialsize += 5
-                print("dot =", initialsize)
-                score = score + 1
-                callscaleCircle1()
-                flashG()
-                run(sound)
+            if size2 <= size{                               // doesn't allow multiple taps
+                print("moving circle is inside")
+                if twice == false{
+                    initialsize += 5
+                    print("dot =", initialsize)
+                    score = score + 1
+                    callscaleCircle1()
+                    flashG()
+                    run(sound)
+                }
+                twice = true
+                print("duration =", duration)         
             }
-            twice = true
-            
-            
-            print("duration =", duration)
-            
+            if size2 > size{
+                print("moving circle is outside")
+                flashR()
+                initialsize -= 20
+                run(sound1)
+                scaleCircle1()    
+            }
         }
-        if size2 > size{
-            print("moving circle is outside")
-            flashR()
-            initialsize -= 20
-            run(sound1)
-            scaleCircle1()
-            
-            
-        }
-        }
-        par = false
-        
+        par = false        
     }
     
     func callCircle2(){    //makes sure scaleCircle2 isn't called twice
@@ -236,7 +211,6 @@ class Play: SKScene {
                // initialsize -= 5
                 initialsize = 120
                 print("now dot =", initialsize)
-
             }
             called2 = true
         }
@@ -281,9 +255,7 @@ class Play: SKScene {
         let put = SKAction.run({()in self.apparation2()})
         let wait = SKAction.wait(forDuration: 0.1)
         let delete = SKAction.run({() in self.remove2()})
-        self.run(SKAction.sequence([put, wait, delete]))
-        
-        
+        self.run(SKAction.sequence([put, wait, delete]))        
     }
     
     func apparation2(){
@@ -292,8 +264,5 @@ class Play: SKScene {
     }
     func remove2(){
         RCircle.removeFromParent()
-    }
-
-    
-    
+    } 
 }
