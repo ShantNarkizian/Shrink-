@@ -12,8 +12,7 @@ import GameKit
 
 
 class GameOver: SKScene, GKGameCenterControllerDelegate{
-    
-    
+       
     var button1 = SKSpriteNode()
     var button2 = SKSpriteNode()
     var button3 = SKSpriteNode()
@@ -87,25 +86,19 @@ class GameOver: SKScene, GKGameCenterControllerDelegate{
         self.GC.fontColor = UIColor.white
         self.addChild(GC)
         GC.zPosition = 0.2
-
-        
+ 
         if score > highscore {
             highscore = score
         }
         
         let highscoreDefault = UserDefaults.standard
         highscoreDefault.set(highscore, forKey: "highscore")
-        highscoreDefault.synchronize()
-        
-        
-        
-        
+        highscoreDefault.synchronize()    
     }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        var push = false
-        
+        var push = false   
         let touch = touches.first!
         if replay.contains(touch.location(in: self)){
             push = true
@@ -119,7 +112,6 @@ class GameOver: SKScene, GKGameCenterControllerDelegate{
         
         let touch2 = touches.first!
         if share.contains(touch2.location(in: self)){
-
             let textToShare = "i just scored \(score) points in shrink! Try to beat me!"
             
             let objectsToShare = [textToShare]
@@ -136,13 +128,11 @@ class GameOver: SKScene, GKGameCenterControllerDelegate{
         if GC.contains(touch3.location(in: self)){
         saveHS(number: highscore)
         showLeader()
-        }
-        
+        }   
     }
     
     
-    func saveHS(number: Int){
-        
+    func saveHS(number: Int){   
         if GKLocalPlayer.localPlayer().isAuthenticated{
             let scoreReport = GKScore(leaderboardIdentifier: "SHRINK")
             
@@ -150,8 +140,7 @@ class GameOver: SKScene, GKGameCenterControllerDelegate{
             let scoreArray : [GKScore] = [scoreReport]
             
             GKScore.report(scoreArray, withCompletionHandler: nil)
-        }
-        
+        }     
     }
     
     func showLeader(){
@@ -164,8 +153,5 @@ class GameOver: SKScene, GKGameCenterControllerDelegate{
     }
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismiss(animated: true, completion: nil)
-    }
- 
-    
-    
+    } 
 }
