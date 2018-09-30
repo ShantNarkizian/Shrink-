@@ -1,4 +1,4 @@
-# Shrink-
+# Shrink
 2D iOS game created using Spritekit
 
 download Shrink on the app store today
